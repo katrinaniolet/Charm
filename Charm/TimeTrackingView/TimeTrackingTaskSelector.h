@@ -39,7 +39,6 @@ public:
     void handleActiveEvents();
     void taskSelected( const WeeklySummary& );
 
-    void resizeEvent( QResizeEvent* );
     QSize sizeHint() const;
     QMenu* menu() const;
 

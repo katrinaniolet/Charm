@@ -7,6 +7,7 @@
 #include <QFontMetrics>
 #include <QToolButton>
 #include <QPaintEvent>
+#include <QToolBar>
 
 #include "Core/CharmConstants.h"
 
@@ -349,6 +350,15 @@ void TimeTrackingView::setSummaries( QVector<WeeklySummary> s )
 bool TimeTrackingView::isTracking() const
 {
     return DATAMODEL->activeEventCount() > 0;
+}
+
+void TimeTrackingView::resetTaskSelector()
+{
+    m_taskSelector->deleteLater();
+    QToolBar dummy;
+    m_taskSelector = new TimeTrackingTaskSelector( &dummy, this );
+    m_taskSelector->populate( m_summaries );
+    update();
 }
 
 void TimeTrackingView::showEvent( QShowEvent* event )

@@ -101,6 +101,14 @@ TimeTrackingTaskSelector::TimeTrackingTaskSelector(QToolBar* toolBar, QWidget *p
     m_startOtherTaskAction->setShortcut( Qt::Key_T );
     connect( m_startOtherTaskAction, SIGNAL( triggered() ),
              SLOT( slotManuallySelectTask() ) );
+
+    QHBoxLayout * l = new QHBoxLayout();
+    l->setContentsMargins(0,0,0,0);
+    setLayout(l);
+    l->addWidget(m_stopGoButton);
+    l->addWidget(m_editCommentButton);
+    l->addWidget(m_taskSelectorButton);
+    m_taskSelectorButton->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Fixed);
 }
 
 void TimeTrackingTaskSelector::populateEditMenu( QMenu* menu )
@@ -113,18 +121,7 @@ void TimeTrackingTaskSelector::populateEditMenu( QMenu* menu )
 QSize TimeTrackingTaskSelector::sizeHint() const
 {
     const QSize stopGoButtonSizeHint = m_stopGoButton->sizeHint();
-    return QSize( 200, stopGoButtonSizeHint.height() ); // width is ignored anyway
-}
-
-void TimeTrackingTaskSelector::resizeEvent( QResizeEvent* )
-{
-    m_stopGoButton->resize( m_stopGoButton->sizeHint() );
-    m_stopGoButton->move( 0, 0 );
-    m_editCommentButton->resize( m_editCommentButton->sizeHint() );
-    m_editCommentButton->move( m_stopGoButton->width(), 0 );
-    const QSize space( width() - m_stopGoButton->width() - m_editCommentButton->width(), height() );
-    m_taskSelectorButton->resize( space );
-    m_taskSelectorButton->move( m_stopGoButton->width() + m_editCommentButton->width(), 0 );
+    return QSize( 300, stopGoButtonSizeHint.height() ); // width is ignored anyway
 }
 
 QMenu* TimeTrackingTaskSelector::menu() const
@@ -202,12 +199,14 @@ void TimeTrackingTaskSelector::populate( const QVector<WeeklySummary>& summaries
     }
     // enable the selector button if the menu is not empty
     m_taskSelectorButton->setDisabled( m_menu->actions().isEmpty() );
+    update();
 }
 
 void TimeTrackingTaskSelector::slotEditCommentClicked() {
     QPointer<CommentEditorPopup> popup( new CommentEditorPopup( this ) );
     popup->exec();
     delete popup;
+    update();
 }
 
 void TimeTrackingTaskSelector::handleActiveEvents()
@@ -237,6 +236,7 @@ void TimeTrackingTaskSelector::handleActiveEvents()
         m_stopGoAction->setChecked( false );
         m_editCommentAction->setEnabled( false );
     }
+    update();
 }
 
 void TimeTrackingTaskSelector::slotActionSelected( QAction* action )
@@ -253,6 +253,7 @@ void TimeTrackingTaskSelector::slotActionSelected( QAction* action )
             emit startEvent( taskId );
         }
     }
+    update();
 }
 
 void TimeTrackingTaskSelector::taskSelected( const QString& taskname, TaskId id )
@@ -260,6 +261,7 @@ void TimeTrackingTaskSelector::taskSelected( const QString& taskname, TaskId id 
     m_selectedTask = id;
     m_stopGoAction->setEnabled( true );
     m_taskSelectorButton->setText( taskname );
+    update();
 }
 
 void TimeTrackingTaskSelector::slotGoStopToggled( bool on )
@@ -270,6 +272,7 @@ void TimeTrackingTaskSelector::slotGoStopToggled( bool on )
     } else {
         emit stopEvents();
     }
+    update();
 }
 
 void TimeTrackingTaskSelector::taskSelected( const WeeklySummary& summary )
@@ -288,6 +291,7 @@ void TimeTrackingTaskSelector::slotManuallySelectTask()
     m_taskManuallySelected = true;
     handleActiveEvents();
     emit updateSummariesPlease();
+    update();
 }
 
 

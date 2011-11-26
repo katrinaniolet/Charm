@@ -61,6 +61,9 @@ public:
 
     bool isTracking() const;
 
+    TimeTrackingTaskSelector* taskSelector() const { return m_taskSelector; }
+    void resetTaskSelector();
+
 protected:
     void showEvent( QShowEvent* event );
     void hideEvent( QHideEvent* event );

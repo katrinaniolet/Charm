@@ -172,6 +172,16 @@ QMenu *TimeTrackingWindow::editMenu() const
     return menu;
 }
 
+TimeTrackingTaskSelector *TimeTrackingWindow::taskSelector() const
+{
+    return m_summaryWidget->taskSelector();
+}
+
+void TimeTrackingWindow::resetTaskSelector()
+{
+    m_summaryWidget->resetTaskSelector();
+}
+
 void TimeTrackingWindow::slotSelectTasksToShow()
 {
     // we would like to always show some tasks, if there are any

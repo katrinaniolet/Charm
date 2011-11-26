@@ -8,6 +8,7 @@
 #include "EventWindow.h"
 #include "TasksWindow.h"
 #include "TimeTrackingView/TimeTrackingWindow.h"
+#include "TimeTrackingView/TimeTrackingTaskSelector.h"
 #include "Application.h"
 #include "TrayIcon.h"
 #include "ui_TabMainWindow.h"
@@ -25,11 +26,13 @@ TabMainWindow::TabMainWindow( QWidget* parent )
     , m_tasksToolbar(0)
     , m_currentToolbar(0)
     , m_currentMenu(0)
+    , m_timerToolbar(0)
 {
     ui->setupUi(this);
     setWindowIdentifier("TabbedMainWindow");
     removeToolBar(toolBar());
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
+    m_timerToolbar = addToolBar( "timerselector" );
 }
 
 void TabMainWindow::configurationChanged()
@@ -43,13 +46,17 @@ void TabMainWindow::configurationChanged()
             m_eventToolbar = m_eventWindow->toolBar();
             m_tasksToolbar = m_tasksWindow->toolBar();
 
+            m_timerToolbar->addWidget(m_timeTracker->taskSelector());
             m_eventWindow->removeToolBar(m_eventToolbar);
             m_tasksWindow->removeToolBar(m_tasksToolbar);
 
-            addToolBar(Qt::BottomToolBarArea,m_eventToolbar);
-            addToolBar(Qt::BottomToolBarArea,m_tasksToolbar);
+            addToolBar(Qt::TopToolBarArea,m_timerToolbar);
+            addToolBar(Qt::TopToolBarArea,m_eventToolbar);
+            addToolBar(Qt::TopToolBarArea,m_tasksToolbar);
             m_eventToolbar->hide();
             m_tasksToolbar->hide();
+            m_timerToolbar->show();
+            m_currentToolbar = m_timerToolbar;
 
             ui->tabs->addTab( tracker, m_timeTracker->windowName() );
             ui->tabs->addTab( event, m_eventWindow->windowName() );
@@ -87,9 +94,11 @@ void TabMainWindow::configurationChanged()
 
                 removeToolBar(m_eventToolbar);
                 removeToolBar(m_tasksToolbar);
+                removeToolBar(m_timerToolbar);
 
                 m_eventWindow->addToolBar(m_eventToolbar);
                 m_tasksWindow->addToolBar(m_tasksToolbar);
+                m_timeTracker->resetTaskSelector();
 
                 m_eventToolbar->show();
                 m_tasksToolbar->show();
@@ -119,7 +128,7 @@ void TabMainWindow::tabChanged(int index)
 
     switch(index) {
         case 0:
-            m_currentToolbar = 0;
+            m_currentToolbar = m_timerToolbar;
             m_currentMenu = m_timeEditMenu;
             break;
         case 1:

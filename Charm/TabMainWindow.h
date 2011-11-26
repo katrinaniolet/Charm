@@ -38,6 +38,7 @@ private:
     TasksWindow * m_tasksWindow;
     QToolBar * m_eventToolbar;
     QToolBar * m_tasksToolbar;
+    QToolBar * m_timerToolbar;
     QToolBar * m_currentToolbar;
     QMenu * m_eventEditMenu;
     QMenu * m_timeEditMenu;

@@ -11,6 +11,7 @@
 class HttpJob;
 class CharmCommand;
 class TimeTrackingView;
+class TimeTrackingTaskSelector;
 
 class TimeTrackingWindow : public CharmWindow,
                          public CharmDataModelAdapterInterface
@@ -44,6 +45,9 @@ public:
     void eventActivated( EventId id );
     void eventDeactivated( EventId id );
     /* reimpl */ QMenu * editMenu() const;
+    TimeTrackingTaskSelector* taskSelector() const;
+    void resetTaskSelector();
+
 
 public slots:
     // slots migrated from the old main window:
