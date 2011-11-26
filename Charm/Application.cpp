@@ -128,8 +128,10 @@ Application::Application(int& argc, char** argv)
 
     setWindowIcon( Data::charmIcon() );
 
-    Q_FOREACH( CharmWindow* window, m_windows )
-        m_systrayContextMenu.addAction( window->showHideAction() );
+    Q_FOREACH( CharmWindow* window, m_windows ) {
+        if(!(qobject_cast<TabMainWindow*>(window)))
+            m_systrayContextMenu.addAction( window->showHideAction() );
+    }
 
     m_systrayContextMenu.addSeparator();
     m_systrayContextMenu.addMenu( m_timeTracker.menu() );
@@ -564,6 +566,14 @@ bool Application::configure()
 
 void Application::toggleShowHide()
 {
+    if( Configuration::instance().tabbedInterface ) {
+        m_timeTracker.hide();
+        m_tasksWindow.hide();
+        m_eventWindow.hide();
+        m_tabMainWindow.setVisible(!(m_tabMainWindow.isVisible()));
+        return;
+    }
+
     if ( m_timeTracker.isHidden() && m_tasksWindow.isHidden() && m_eventWindow.isHidden() ) {
         int raised = 0;
         if ( m_eventWindowHiddenFromSystrayToggle ) {

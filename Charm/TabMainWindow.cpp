@@ -8,6 +8,8 @@
 #include "EventWindow.h"
 #include "TasksWindow.h"
 #include "TimeTrackingView/TimeTrackingWindow.h"
+#include "Application.h"
+#include "TrayIcon.h"
 #include "ui_TabMainWindow.h"
 
 TabMainWindow::TabMainWindow( QWidget* parent )
@@ -64,6 +66,9 @@ void TabMainWindow::configurationChanged()
             m_eventWindow->setCentralWidget(0);
             m_tasksWindow->setCentralWidget(0);
 
+            m_timeTracker->showHideAction()->setEnabled(false);
+            m_tasksWindow->showHideAction()->setEnabled(false);
+            m_eventWindow->showHideAction()->setEnabled(false);
         }
         show();
     }
@@ -95,6 +100,9 @@ void TabMainWindow::configurationChanged()
                 event->show();
                 tasks->show();
 
+                m_timeTracker->showHideAction()->setEnabled(true);
+                m_tasksWindow->showHideAction()->setEnabled(true);
+                m_eventWindow->showHideAction()->setEnabled(true);
             }
         }
         hide();
