@@ -45,6 +45,7 @@ extern const QString MetaKey_Key_IdleDetection;
 extern const QString MetaKey_Key_AnimatedTrayIcon;
 extern const QString MetaKey_Key_ToolButtonStyle;
 extern const QString MetaKey_Key_ShowStatusBar;
+extern const QString MetaKey_Key_TabbedInterface;
 
 #define CONFIGURATION ( Configuration::instance() )
 

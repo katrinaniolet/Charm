@@ -9,14 +9,12 @@
 class QAction;
 class QShortcut;
 
-class CharmWindow : public QMainWindow,
-                    public ViewInterface,
+class CharmWindow : public ViewInterface,
                     public CommandEmitterInterface
 {
-    Q_OBJECT
 
 public:
-    explicit CharmWindow( const QString& name, QWidget* parent = 0 );
+    explicit CharmWindow( const QString& name );
 
     QAction* showHideAction();
 
@@ -49,22 +47,6 @@ public:
     virtual void restoreGuiState();
 
     static bool showHideView( QWidget* w );
-    virtual QMenu * editMenu() const = 0;
-
-signals:
-    /* reimpl */ void visibilityChanged( bool );
-    /* reimpl */ void saveConfiguration();
-
-public slots:
-    /* reimpl */ void sendCommand( CharmCommand* );
-    /* reimpl */ void commitCommand( CharmCommand* );
-    virtual void configurationChanged();
-    void restore();
-    void showHideView();
-
-signals:
-    /* reimpl */ void emitCommand( CharmCommand* );
-    /* reimpl */ void quit();
 
 private:
     void handleShowHide( bool visible );

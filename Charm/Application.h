@@ -30,6 +30,7 @@
 #include "TimeTrackingView/TimeTrackingWindow.h"
 #include "ModelConnector.h"
 #include "TrayIcon.h"
+#include "TabMainWindow.h"
 
 // FIXME read configuration name from command line
 
@@ -136,6 +137,7 @@ private:
     QAction m_actionReporting;
     TasksWindow m_tasksWindow;
     EventWindow m_eventWindow;
+    TabMainWindow m_tabMainWindow;
     IdleDetector* m_idleDetector;
     bool m_timeTrackerHiddenFromSystrayToggle;
     bool m_tasksWindowHiddenFromSystrayToggle;

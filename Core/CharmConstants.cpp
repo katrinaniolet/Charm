@@ -32,6 +32,7 @@ const QString MetaKey_Key_IdleDetection = "IdleDetection";
 const QString MetaKey_Key_AnimatedTrayIcon = "AnimatedTrayIcon";
 const QString MetaKey_Key_ToolButtonStyle = "ToolButtonStyle";
 const QString MetaKey_Key_ShowStatusBar = "ShowStatusBar";
+const QString MetaKey_Key_TabbedInterface = "TabbedInterface";
 
 const QString TrueString( "true" );
 const QString FalseString( "false" );

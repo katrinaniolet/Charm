@@ -148,16 +148,19 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="lbAnimatedTrayIcon">
+          <widget class="QCheckBox" name="cbAnimatedTrayIcon">
            <property name="text">
             <string>Animated tray icon</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QCheckBox" name="cbAnimatedTrayIcon">
-           <property name="checked">
-            <bool>true</bool>
+          <widget class="QCheckBox" name="tabbedInterface">
+           <property name="text">
+            <string>Tabbed Interface</string>
            </property>
           </widget>
          </item>

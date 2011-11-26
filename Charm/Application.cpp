@@ -39,7 +39,7 @@ Application::Application(int& argc, char** argv)
     : QApplication( argc, argv )
     , m_closedWindow( 0 )
     , m_actionStopAllTasks( this )
-    , m_windows( QList<CharmWindow*> () << &m_tasksWindow << &m_eventWindow << &m_timeTracker )
+    , m_windows( QList<CharmWindow*> () << &m_tasksWindow << &m_eventWindow << &m_timeTracker << &m_tabMainWindow )
     , m_actionQuit( this )
     , m_state(Constructed)
     , m_actionAboutDialog( this )
@@ -189,6 +189,10 @@ Application::Application(int& argc, char** argv)
     if ( applicationDirPath().endsWith("MacOS") )
         addLibraryPath( applicationDirPath() + "/../plugins");
 
+    m_tabMainWindow.addEventEditor(&m_eventWindow);
+    m_tabMainWindow.addTaskEditor(&m_tasksWindow);
+    m_tabMainWindow.addTimeTracker(&m_timeTracker);
+
     // Ladies and gentlemen, please raise upon your seats -
     // the show is about to begin:
     emit goToState(StartingUp);
@@ -229,10 +233,15 @@ void Application::createWindowMenu( QMenuBar *menuBar )
 {
     QMenu* menu = new QMenu( menuBar );
     menu->setTitle( tr( "Window" ) );
-    Q_FOREACH( CharmWindow* window, m_windows ) {
-        menu->addAction( window->showHideAction() );
+
+    if(!(qobject_cast<TabMainWindow*>(menuBar->window()))) {
+        Q_FOREACH( CharmWindow* window, m_windows ) {
+            if(!(qobject_cast<TabMainWindow*>(window)))
+                menu->addAction( window->showHideAction() );
+        }
+        menu->addSeparator();
     }
-    menu->addSeparator();
+
     menu->addAction( &m_actionReporting );
     menu->addAction( &m_actionPreferences );
     menuBar->addMenu( menu );

@@ -63,6 +63,7 @@ public:
     QString localStorageType; // SqLite, MySql, ...
     QString localStorageDatabase; // database name (path, with sqlite)
     bool newDatabase; // true if the configuration has just been created
+    bool tabbedInterface; // Use tabs instead of separate windows
     bool failure; // used to reconfigure on failures
     QString failureMessage; // a message to show the user if something is wrong with the configuration
 
@@ -78,7 +79,7 @@ private:
     Configuration( bool eventsInLeafsOnly, bool oneEventAtATime, User user,
                    TaskPrefilteringMode taskPrefilteringMode, TaskTrackerFontSize,
                    bool always24hEditing, DurationFormat durationFormat, bool detectIdling,
-                   Qt::ToolButtonStyle buttonstyle, bool showStatusBar, bool animatedTrayIcon );
+                   Qt::ToolButtonStyle buttonstyle, bool showStatusBar, bool animatedTrayIcon, bool tabbedInterface = false );
     Configuration();
 };
 

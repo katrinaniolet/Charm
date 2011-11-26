@@ -51,4 +51,11 @@ void EventWindow::restore()
     show();
 }
 
+QMenu *EventWindow::editMenu() const
+{
+    QMenu * menu = new QMenu( tr("Edit") );
+    m_eventView->populateEditMenu(menu);
+    return menu;
+}
+
 #include "EventWindow.moc"

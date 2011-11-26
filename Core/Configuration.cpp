@@ -32,6 +32,7 @@ Configuration::Configuration()
     , newDatabase( false )
     , failure( false )
     , taskPaddingLength( 6 ) // arbitrary
+    , tabbedInterface( false )
 {
 }
 
@@ -40,7 +41,7 @@ Configuration::Configuration( bool _eventsInLeafsOnly, bool _oneEventAtATime, Us
                               TaskTrackerFontSize _taskTrackerFontSize,
                               bool _always24hEditing, DurationFormat _durationFormat, bool _detectIdling,
                               Qt::ToolButtonStyle _buttonstyle,
-                              bool _showStatusBar, bool _animatedTrayIcon )
+                              bool _showStatusBar, bool _animatedTrayIcon, bool _tabbedInterface )
     : eventsInLeafsOnly( _eventsInLeafsOnly )
     , oneEventAtATime( _oneEventAtATime )
     , taskPrefilteringMode( _taskPrefilteringMode )
@@ -56,6 +57,7 @@ Configuration::Configuration( bool _eventsInLeafsOnly, bool _oneEventAtATime, Us
     , newDatabase( false )
     , failure( false )
     , taskPaddingLength( 6 ) // arbitrary
+    , tabbedInterface( _tabbedInterface )
 {
 }
 
@@ -77,6 +79,7 @@ bool Configuration::operator==( const Configuration& other ) const
         installationId == other.installationId &&
         localStorageType == other.localStorageType &&
         localStorageDatabase == other.localStorageDatabase;
+	tabbedInterface == other.tabbedInterface;
 }
 
 void Configuration::writeTo( QSettings& settings )
@@ -85,6 +88,7 @@ void Configuration::writeTo( QSettings& settings )
     settings.setValue( MetaKey_Key_UserId, user.id() );
     settings.setValue( MetaKey_Key_LocalStorageType, localStorageType );
     settings.setValue( MetaKey_Key_LocalStorageDatabase, localStorageDatabase );
+    settings.setValue( MetaKey_Key_TabbedInterface, tabbedInterface );
     dump( "(Configuration::writeTo stored configuration)" );
 }
 
@@ -111,6 +115,7 @@ bool Configuration::readFrom( QSettings& settings )
     } else {
         complete = false;
     }
+    tabbedInterface = settings.value( MetaKey_Key_TabbedInterface ).toBool();
     dump( "(Configuration::readFrom loaded configuration)" );
     return complete;
 }
@@ -135,6 +140,7 @@ void Configuration::dump( const QString& why )
              << "--> Idle Detection:         " << detectIdling << endl
              << "--> toolButtonStyle:        " << toolButtonStyle << endl
              << "--> showStatusBar:          " << showStatusBar << endl
-             << "--> animatedTrayIcon:       " << animatedTrayIcon;
+             << "--> animatedTrayIcon:       " << animatedTrayIcon << endl
+             << "--> tabbed interface:       " << tabbedInterface;
 }
 

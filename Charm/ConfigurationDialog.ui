@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>417</width>
-    <height>237</height>
+    <height>282</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,6 +57,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="tabbedInterface">
+     <property name="text">
+      <string>Use tabs instead of separate windows</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_4">

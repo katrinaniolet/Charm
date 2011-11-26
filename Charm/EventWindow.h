@@ -17,6 +17,7 @@ public:
 
     // restore the view
     /* reimpl */ void restore();
+    /* reimpl */ QMenu * editMenu() const;
 public slots:
     /* reimpl */ void configurationChanged();
 

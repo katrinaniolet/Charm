@@ -28,6 +28,7 @@ SET(
         EventModelFilter.cpp
         TasksViewDelegate.cpp
         CharmAboutDialog.cpp
+	TabMainWindow.cpp
         TimeTrackingView/TimeTrackingView.cpp
         TimeTrackingView/TimeTrackingWindow.cpp
         TimeTrackingView/WeeklySummary.cpp
@@ -103,6 +104,7 @@ QT4_WRAP_UI(
         EventEditor.ui
         SelectTaskDialog.ui
         CharmAboutDialog.ui
+        TabMainWindow.ui
         Idle/IdleCorrectionDialog.ui
 )
 

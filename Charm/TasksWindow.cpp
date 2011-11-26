@@ -38,6 +38,13 @@ void TasksWindow::restore()
     show();
 }
 
+QMenu *TasksWindow::editMenu() const
+{
+    QMenu * menu = new QMenu( tr("Edit") );
+    m_tasksView->populateEditMenu(menu);
+    return menu;
+}
+
 void TasksWindow::configurationChanged()
 {
     CharmWindow::configurationChanged();

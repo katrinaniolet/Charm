@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QTemporaryFile>
+#include <QToolBar>
 
 #include "Core/TimeSpans.h"
 #include "Core/TaskListMerger.h"
@@ -164,6 +165,13 @@ void TimeTrackingWindow::eventDeactivated( EventId id )
     m_summaryWidget->handleActiveEvents();
 }
 
+QMenu *TimeTrackingWindow::editMenu() const
+{
+    QMenu * menu = new QMenu( tr("Edit") );
+    m_summaryWidget->populateEditMenu(menu);
+    return menu;
+}
+
 void TimeTrackingWindow::slotSelectTasksToShow()
 {
     // we would like to always show some tasks, if there are any
@@ -245,6 +253,7 @@ void TimeTrackingWindow::slotEditPreferences( bool )
         CONFIGURATION.toolButtonStyle = dialog.toolButtonStyle();
         CONFIGURATION.detectIdling = dialog.detectIdling();
         CONFIGURATION.animatedTrayIcon = dialog.animatedTrayIcon();
+        CONFIGURATION.tabbedInterface = dialog.tabbedInterface();
         emit saveConfiguration();
     }
 }

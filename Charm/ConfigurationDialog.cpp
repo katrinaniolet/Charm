@@ -34,6 +34,7 @@ void ConfigurationDialog::done()
     m_config.localStorageType = CHARM_SQLITE_BACKEND_DESCRIPTOR;
     m_config.localStorageDatabase = m_ui.databaseLocation->text();
     m_config.newDatabase = true;
+    m_config.tabbedInterface = m_ui.tabbedInterface->isChecked();
     // m_config.failure = false; currently set by application
     accept();
 }

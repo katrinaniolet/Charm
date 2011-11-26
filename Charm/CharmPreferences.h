@@ -21,6 +21,7 @@ public:
     Configuration::DurationFormat durationFormat() const;
     bool detectIdling() const;
     bool animatedTrayIcon() const;
+    bool tabbedInterface() const;
 
     Qt::ToolButtonStyle toolButtonStyle() const;
 

@@ -43,6 +43,7 @@ public:
     void eventDeleted( EventId id );
     void eventActivated( EventId id );
     void eventDeactivated( EventId id );
+    /* reimpl */ QMenu * editMenu() const;
 
 public slots:
     // slots migrated from the old main window:
